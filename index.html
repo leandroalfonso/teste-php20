@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inserir Alunos e Cursos</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            max-width: 1000px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+        }
+
+        input {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        select {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Inserir Alunos e Cursos</h2>
+    <div class="container">
+        <form action="http://localhost:3000/index.php" method="post">
+            <label for="nome_aluno">Nome do Aluno:</label><br>
+            <input type="text" id="nome_aluno" name="nome_aluno" required><br><br>
+        
+            <label for="curso_aluno">Curso do Aluno:</label><br>
+            <select id="id_curso" name="id_curso" title="cursos">
+                <!-- Options dos cursos serão preenchidos dinamicamente pelo JavaScript -->
+            </select>
+        
+        
+            <input type="submit" value="Inserir">
+        </form>
+
+    </div>
+   
+</body>
+<script>
+    fetch('http://localhost:3000/cursos.php')
+        .then(response => response.json())
+        .then(data => {
+            let cursos = data;
+            let select = document.getElementById('id_curso');
+            cursos.forEach(curso => {
+                let option = document.createElement('option');
+                option.value = curso.id_curso;
+                option.text = curso.nome_curso;
+                select.appendChild(option);
+            });
+        });
+
+</script>
+
+</html>
